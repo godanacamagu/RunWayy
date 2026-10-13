@@ -3,7 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RunWayy.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+            : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+            //Optional: store enum as string
+            builder.Entity<ApplicationUser>()
+                    .Property(u => u.Gender)
+                    .HasConversion<string>()
+                    .HasMaxLength(20);
+        }
     }
 }
