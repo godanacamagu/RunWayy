@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using RunWayy.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Client;
+using RunWayy.Data;
 
 namespace RunWayy.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserRoles : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserRoles(
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager
             
             )
